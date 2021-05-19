@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Basic AJAX Demo</title>
+		<link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="main">
+			<h2>Get The Latest Content:</h2>
+			<div class='content' id="content">
+				<input type="button" class="button" value="Get Content" id="btn_content" onclick="getContent();"/>
+			</div>
+		<script type="text/javascript">
+
+            // Step 1: Setting up XML http request object
+            var ajax = new XMLHttpRequest();
+
+            // Step 2: prepare the open ajax request
+            ajax.open('GET', 'content.html');
+
+            // Step 3: define the ajax response callback method
+            ajax.onreadystatechange = function() {
+                if (ajax.readyState == 4) {
+                    document.getElementById("content").innerHTML = ajax.responseText;
+                }
+            }
+
+            // Setp 4: send the ajax request for data
+			function getContent() {
+                ajax.send();
+                document.getElementById("btn_content").style.display = "none";
+            }
+		</script>
+
+        <!-- ONREADYSTATECHANGE CHALLENGE -->
+            <h2>The onreadystatechange Property</h2>
+            <div class="content" id="change">
+                <input type="button" class="button" value="Change Content" id="btn" onclick="getReady()"/>
+            </div>
+        <script type="text/javascript">
+                // setting up the XML http request object
+                var x = new XMLHttpRequest();
+
+                // prepare the open request
+                x.open("GET", "onreadystatechange.html", true);
+
+                // define the response callback method
+                x.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("change").innerHTML = x.responseText;
+                    }
+                }
+
+                // send for the request for data
+                function getReady() {
+                    x.send();
+                    document.getElementById("btn").style.display = "none"
+                }
+        </script>
+
+    </body>
+</html>
